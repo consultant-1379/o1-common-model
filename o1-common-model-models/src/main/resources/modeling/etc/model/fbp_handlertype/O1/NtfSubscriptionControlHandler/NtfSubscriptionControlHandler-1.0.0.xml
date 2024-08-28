@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--*******************************************************************************
+    COPYRIGHT Ericsson LMI 2023. All rights reserved. * * No part of this document
+    may be reproduced in any form without the * written permission of the copyright
+    owner.The contents of this document * are subject to revision without notice
+    due to continued progress in * methodology, design and manufacturing. Ericsson
+    shall have no liability * for any error or damage of any kind resulting from
+    the use of this document.
+    ******************************************************************************** -->
+<handler:HandlerTypeDefinition
+        oss_common:ns="O1"
+        oss_common:name="NtfSubscriptionControlHandler"
+        oss_common:version="1.0.0"
+        xmlns:flow="urn:com:ericsson:schema:xml:oss:fbp_flow"
+        xmlns:handler="urn:com:ericsson:schema:xml:oss:fbp_handlertype"
+        xmlns:oss_common="urn:com:ericsson:schema:xml:oss:oss_common"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <oss_common:modelCreationInfo author="TeamAmerica" creationDate="7/17/2023">
+        <oss_common:designedModel componentId="o1-common-model-models"/>
+    </oss_common:modelCreationInfo>
+
+    <oss_common:desc>
+        The NtfSubscriptionControlHandler is responsible for the creation and deletion of the NtfSubscriptionControl MO on the O1 node.
+        This MO is required to subscribe and receive event notifications from the O1 node.
+    </oss_common:desc>
+
+    <flow:handler>
+        <flow:className>com.ericsson.oss.mediation.o1.yang.handlers.netconf.NtfSubscriptionControlHandler</flow:className>
+
+        <flow:attributeDef oss_common:name="fdn">
+            <oss_common:desc>
+                FDN of the Supervision MO.
+                Parameter is used to extract the NetworkElementId from this parameter.
+                Populated automatically from the Initiating Managed Object, for example FmAlarmSupervision.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:stringType"/>
+            <flow:source uri="dps:fdn"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="active">
+            <oss_common:desc>
+                Indicates supervision activation or un-subscription case.
+                True to subscribe for notifications, false to un-subscribe.
+                Populated automatically from the Initiating Managed Object, for example FmAlarmSupervision.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:booleanType"/>
+            <flow:source uri="dps:active"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="VIP">
+            <oss_common:desc>
+                Attribute name to be used to get VES collector VIP from the Global Properties.
+                For example "ves_collector_ip".
+                Mandatory attribute, to be set it in the flow.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:stringType"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="NtfSubscriptionControlId">
+            <oss_common:desc>
+                ID of the NtfSubscriptionControl MO to be created.
+                For example "ENMFM".
+                Mandatory attribute, to be set it in the flow.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:stringType"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="NtfSubscriptionControlO1MessageEventPath">
+            <oss_common:desc>
+                The path value to be incorporated into the notificationRecipientAddress field.
+
+                The path need to match the routing setup of O1 event notifications within ENM.
+                The path also need to match the VES collector address.
+
+                Example path "fm", and example notificationRecipientAddress based the path: "https://1.2.3.4:5678/fm/eventListener/v1"
+
+                Optional attribute. The default is to use the value of med_service_protocol_info system property.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:stringType"/>
+            <flow:source uri="sfk_config:med_service_protocol_info"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="NtfSubscriptionControlNotificationTypes">
+            <oss_common:desc>
+                A list of valid notification types to be sent from the node to ENM.
+
+                For example a list of "notifyChangedAlarm", "notifyNewAlarm".
+
+                Mandatory attribute, to be set it in the flow.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:listType">
+                <oss_common:collectionValuesType xsi:type="oss_common:stringType" />
+            </oss_common:type>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="ManagedElementId">
+            <oss_common:desc>
+                The ID of the ManagedElement of the O1 node.
+
+                Recommended to integrate ReadManagedElementIdHandler into the flow to set this value prior to this handler.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:stringType"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="netconfManager">
+            <oss_common:desc>
+                The NetconfMangager object to be used to execute the netconf operations with.
+
+                Recommended to integrate NetconfSessionBuilderHandler into the flow to set this value prior to this handler.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:objectType"/>
+        </flow:attributeDef>
+    </flow:handler>
+
+</handler:HandlerTypeDefinition>

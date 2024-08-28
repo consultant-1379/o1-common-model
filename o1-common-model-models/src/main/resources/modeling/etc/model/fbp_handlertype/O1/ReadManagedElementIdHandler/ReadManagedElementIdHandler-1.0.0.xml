@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *******************************************************************************
+    * COPYRIGHT Ericsson LMI 2023. All rights reserved. * * No part of this document
+    may be reproduced in any form without the * written permission of the copyright
+    owner.The contents of this document * are subject to revision without notice
+    due to continued progress in * methodology, design and manufacturing. Ericsson
+    shall have no liability * for any error or damage of any kind resulting from
+    the use of this document. ******************************************************************************** -->
+<handler:HandlerTypeDefinition
+    oss_common:ns="O1" oss_common:version="1.0.0"
+    oss_common:name="ReadManagedElementIdHandler" xmlns:flow="urn:com:ericsson:schema:xml:oss:fbp_flow"
+    xmlns:handler="urn:com:ericsson:schema:xml:oss:fbp_handlertype"
+    xmlns:oss_common="urn:com:ericsson:schema:xml:oss:oss_common"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:com:ericsson:schema:xml:oss:fbp_handlertype urn:com:ericsson:schema:xml:oss:fbp_handlertype ">
+
+    <oss_common:modelCreationInfo author="TeamAmerica/Doozers"
+        creationDate="09/11/2023">
+        <oss_common:designedModel componentId="o1-common-model-models" />
+    </oss_common:modelCreationInfo>
+
+    <oss_common:desc>The ReadManagedElementIdHandler is responsible for reading managed element id from node.</oss_common:desc>
+
+    <flow:handler>
+        <flow:className>com.ericsson.oss.mediation.o1.yang.handlers.netconf.ReadManagedElementIdHandler</flow:className>
+
+        <flow:attributeDef oss_common:name="netconfManager">
+            <oss_common:desc>
+                The NetconfManager object to be used to execute the netconf operations with.
+
+                Recommended to integrate NetconfSessionBuilderHandler into the flow to set this value prior to this handler.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:objectType"/>
+        </flow:attributeDef>
+    </flow:handler>
+
+</handler:HandlerTypeDefinition>

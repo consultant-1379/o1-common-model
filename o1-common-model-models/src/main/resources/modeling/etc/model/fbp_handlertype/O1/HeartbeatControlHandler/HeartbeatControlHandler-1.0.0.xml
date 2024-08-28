@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *******************************************************************************
+    * COPYRIGHT Ericsson LMI 2023. All rights reserved. * * No part of this document
+    may be reproduced in any form without the * written permission of the copyright
+    owner.The contents of this document * are subject to revision without notice
+    due to continued progress in * methodology, design and manufacturing. Ericsson
+    shall have no liability * for any error or damage of any kind resulting from
+    the use of this document. ******************************************************************************** -->
+<handler:HandlerTypeDefinition
+    oss_common:ns="O1" oss_common:version="1.0.0"
+    oss_common:name="HeartbeatControlHandler" xmlns:flow="urn:com:ericsson:schema:xml:oss:fbp_flow"
+    xmlns:handler="urn:com:ericsson:schema:xml:oss:fbp_handlertype"
+    xmlns:oss_common="urn:com:ericsson:schema:xml:oss:oss_common"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="urn:com:ericsson:schema:xml:oss:fbp_handlertype urn:com:ericsson:schema:xml:oss:fbp_handlertype ">
+
+    <oss_common:modelCreationInfo author="TeamAmerica/Doozers"
+        creationDate="8/27/2023">
+        <oss_common:designedModel componentId="o1-common-model-models" />
+    </oss_common:modelCreationInfo>
+
+    <oss_common:desc>The HeartbeatControlHandler is responsible for
+        performing HeartbeatControl MO Create operation against O1Node.
+    </oss_common:desc>
+
+    <flow:handler>
+        <flow:className>com.ericsson.oss.mediation.o1.yang.handlers.netconf.HeartbeatControlHandler</flow:className>
+        <flow:attributeDef oss_common:name="fdn">
+            <oss_common:desc>
+                FDN of the Supervision MO.
+                Parameter is used to extract the NetworkElementId from this parameter.
+                Populated automatically from the Initiating Managed Object, for example FmAlarmSupervision.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:stringType"/>
+            <flow:source uri="dps:fdn"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="active">
+            <oss_common:desc>
+                Indicates supervision activation or un-subscription case.
+                True to subscribe for heartbeat notifications, false to un-subscribe.
+                Populated automatically from the Initiating Managed Object, for example FmAlarmSupervision.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:booleanType"/>
+            <flow:source uri="dps:active"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="heartbeatinterval">
+            <oss_common:desc>
+                Indicates the time between each heartbeat
+                Value is used to set the HeartbeatControl.heartbeatNtfPeriod value
+                Populated automatically from the Initiating Managed Object, for example FmAlarmSupervision.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:integerType"/>
+            <flow:source uri="dps:heartbeatinterval"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="NtfSubscriptionControlId">
+            <oss_common:desc>
+                ID of the NtfSubscriptionControl MO to be created.
+                For example "ENMFM".
+                Mandatory attribute, to be set it in the flow.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:stringType"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="ManagedElementId">
+            <oss_common:desc>
+                The ID of the ManagedElement of the O1 node.
+
+                Recommended to integrate ReadManagedElementIdHandler into the flow to set this value prior to this handler.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:stringType"/>
+        </flow:attributeDef>
+
+        <flow:attributeDef oss_common:name="netconfManager">
+            <oss_common:desc>
+                The NetconfMangager object to be used to execute the netconf operations with.
+
+                Recommended to integrate NetconfSessionBuilderHandler into the flow to set this value prior to this handler.
+            </oss_common:desc>
+            <oss_common:type xsi:type="oss_common:objectType"/>
+        </flow:attributeDef>
+    </flow:handler>
+
+</handler:HandlerTypeDefinition>

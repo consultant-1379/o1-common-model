@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.oss.mediation.o1</groupId>
+        <artifactId>o1-common-model</artifactId>
+        <version>1.6.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>o1-common-heartbeat-cache-model-jar</artifactId>
+    <packaging>jar</packaging>
+    <name>[${project.artifactId}] JAR module</name>
+    <properties>
+        <version.annotation-processor>3.14.1</version.annotation-processor>
+        <version.sdk-modeled-eventbus>3.22.3</version.sdk-modeled-eventbus>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-modeled-eventbus-api</artifactId>
+            <version>${version.sdk-modeled-eventbus}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.ericsson.oss.itpf.modeling.tools</groupId>
+                <artifactId>modeling-annotation-processor-jar</artifactId>
+                <version>${version.annotation-processor}</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>annoproc</goal>
+                        </goals>
+                        <configuration>
+                            <modelBuildDir>
+                                ../${project.parent.artifactId}-jar/model-build</modelBuildDir>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

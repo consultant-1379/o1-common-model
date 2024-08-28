@@ -1,0 +1,24 @@
+.settings/
+.project
+.classpath
+target/
+**/target/
+.pmd
+bin/
+*.swp
+*.zip
+*.war
+*.rar
+*.rpm
+*.orig
+/bin
+*SNAPSHOT
+.checkstyle
+#IntelliJ files
+.idea
+*.iml
+*.eml
+
+*.backup
+#Generated models
+model-build

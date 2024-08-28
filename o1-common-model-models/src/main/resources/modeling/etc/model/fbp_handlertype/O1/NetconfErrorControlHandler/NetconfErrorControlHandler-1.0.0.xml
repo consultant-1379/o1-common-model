@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *******************************************************************************
+    * COPYRIGHT Ericsson LMI 2024. All rights reserved. * * No part of this document
+    may be reproduced in any form without the * written permission of the copyright
+    owner.The contents of this document * are subject to revision without notice
+    due to continued progress in * methodology, design and manufacturing. Ericsson
+    shall have no liability * for any error or damage of any kind resulting from
+    the use of this document.
+    * ******************************************************************************* -->
+<handler:HandlerTypeDefinition oss_common:ns="O1"
+                               oss_common:name="NetconfErrorControlHandler" oss_common:version="1.0.0"
+                               xmlns:flow="urn:com:ericsson:schema:xml:oss:fbp_flow"
+                               xmlns:handler="urn:com:ericsson:schema:xml:oss:fbp_handlertype"
+                               xmlns:oss_common="urn:com:ericsson:schema:xml:oss:oss_common"
+>
+
+    <oss_common:modelCreationInfo author="TeamAmerica/Doozers" creationDate="12/01/2024">
+        <oss_common:designedModel componentId="o1-common-model-models"/>
+    </oss_common:modelCreationInfo>
+
+    <oss_common:desc>Handler that checks the netconf operations status and throws exception if necessary. An
+        AlarmSupervisionResponse event is sent indicating failure also.
+    </oss_common:desc>
+
+    <flow:handler>
+        <flow:className>com.ericsson.oss.mediation.o1.yang.handlers.netconf.NetconfErrorControlHandler</flow:className>
+    </flow:handler>
+
+</handler:HandlerTypeDefinition>
+
+
